@@ -78,7 +78,6 @@ public class DependencyAnalyser {
 	 * @return the string
 	 */
 	public final String convertGifToBaseT64(final File filePicture) {
-		// TODO Auto-generated method stub
 		String output = "";
 		Base64 b = new Base64();
 		try {
@@ -86,7 +85,6 @@ public class DependencyAnalyser {
 			output = new String(b.encode(FileUtils
 					.readFileToByteArray(filePicture)));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return output;
@@ -239,7 +237,6 @@ public class DependencyAnalyser {
 			sb.append("</page>");
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return sb;

@@ -52,7 +52,6 @@ public class TestOnceDatabaseIsSelected extends TestCase {
 				}
 			}
 		} catch (NotesException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
