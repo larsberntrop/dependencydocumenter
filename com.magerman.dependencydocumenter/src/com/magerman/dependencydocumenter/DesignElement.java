@@ -2,6 +2,7 @@ package com.magerman.dependencydocumenter;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,25 +16,40 @@ import org.w3c.dom.NodeList;
  * @author Andrew Magerman
  * 
  */
-/**
- * @author Andrew Magerman
- * 
- */
 public class DesignElement {
 
+	private static Pattern patt_comment_multi = Pattern.compile(
+			"%REM.*?%END REM", Pattern.DOTALL + Pattern.CASE_INSENSITIVE);
 	/**
 	 * Matching patterns - comments
 	 */
 	private static Pattern patt_comment_single = Pattern.compile("'.*");
-	private static Pattern patt_comment_multi = Pattern.compile(
-			"(%REM.*?%END REM", Pattern.DOTALL + Pattern.CASE_INSENSITIVE);
 	private static Pattern patt_use = Pattern.compile("Use \"(.*?)\"",
 			Pattern.CASE_INSENSITIVE);
 
+	public static DesignElement testDesignElement() {
+		DesignElement output = new DesignElement();
+		output.setDeclarations("Option Public\r\n" + "Option Declare\r\n"
+				+ "\r\n" + "\r\n" + "Use \"OpenLogFunctions\"\r\n"
+				+ "Use \"Class: Content Documents\"\r\n"
+				+ "Use \"Class Template Build\"");
+		return output;
+
+	}
+
+	/** The comment of the design element. */
+	private String comment = "";
+
 	/**
-	 * The name of the node, e.g. something like 'scriptlibrary'
+	 * The complete content of /code/event/declarations.
 	 */
-	private String nodename;
+	private String declarations = "";
+
+	/** The from template. */
+	private String inheritfromTheDesignTemplate = "";
+
+	/** The Linked to others. */
+	private boolean linkedToOthers;
 
 	/**
 	 * The given name of the design element, e.g. 'Class HelloWorld'
@@ -41,9 +57,9 @@ public class DesignElement {
 	private String name = "";
 
 	/**
-	 * The complete content of /code/event/declarations.
+	 * The name of the node, e.g. something like 'scriptlibrary'
 	 */
-	private String declarations = "";
+	private String nodename = "";
 
 	/**
 	 * A list of all the design elements needed as parents, i.e. the list of
@@ -52,10 +68,31 @@ public class DesignElement {
 	private HashSet<String> parentReferences = new HashSet<String>();
 
 	/** The parents. */
-	public ArrayList<DesignElement> parents = new ArrayList<DesignElement>();
+	public List<DesignElement> parents = new ArrayList<DesignElement>();
 
-	/** The from template. */
-	private String fromTemplate;
+	/**
+	 * The constructor.
+	 */
+	public DesignElement() {
+	}
+
+	/**
+	 * Gets the attribute text context.
+	 * 
+	 * @param inputNodeMap
+	 *            the input node map
+	 * @param attributeName
+	 *            the attribute name
+	 * @return the attribute text context
+	 */
+	private String getAttributeTextContext(final NamedNodeMap inputNodeMap,
+			final String attributeName) {
+		Node thisNode = inputNodeMap.getNamedItem(attributeName);
+		if (thisNode != null) {
+			return thisNode.getTextContent();
+		}
+		return "";
+	}
 
 	/**
 	 * Gets the from template.
@@ -63,29 +100,31 @@ public class DesignElement {
 	 * @return the from template
 	 */
 	public final String getFromTemplate() {
-		return fromTemplate;
+		return inheritfromTheDesignTemplate;
 	}
 
 	/**
-	 * Sets the from template.
+	 * @return the name of the design element
+	 */
+	public final String getName() {
+		return name;
+	}
+
+	/**
+	 * @return a list of parent references, i.e. the name of elements that are
+	 *         'Use'd
+	 */
+	public final HashSet<String> getParentReferences() {
+		return parentReferences;
+	}
+
+	/**
+	 * Checks if is linked to others.
 	 * 
-	 * @param inputfromTemplate
-	 *            the new from template
+	 * @return true, if is linked to others
 	 */
-	public final void setFromTemplate(final String inputfromTemplate) {
-		this.fromTemplate = inputfromTemplate;
-	}
-
-	/** The comment. */
-	private String comment;
-
-	/** The Linked to others. */
-	private boolean linkedToOthers;
-
-	/**
-	 * The constructor.
-	 */
-	public DesignElement() {
+	public final boolean isLinkedToOthers() {
+		return linkedToOthers;
 	}
 
 	/**
@@ -105,7 +144,8 @@ public class DesignElement {
 		// this.fromTemplate = attributefromtemplate.getTextContent();
 		// }
 
-		this.fromTemplate = getAttributeTextContext(attributes, "fromtemplate");
+		this.inheritfromTheDesignTemplate = getAttributeTextContext(attributes,
+				"fromtemplate");
 		this.name = getAttributeTextContext(attributes, "name");
 		this.comment = getAttributeTextContext(attributes, "comment");
 
@@ -123,24 +163,6 @@ public class DesignElement {
 
 		parsedeclarations();
 
-	}
-
-	/**
-	 * Gets the attribute text context.
-	 * 
-	 * @param inputNodeMap
-	 *            the input node map
-	 * @param attributeName
-	 *            the attribute name
-	 * @return the attribute text context
-	 */
-	private String getAttributeTextContext(final NamedNodeMap inputNodeMap,
-			final String attributeName) {
-		Node thisNode = inputNodeMap.getNamedItem(attributeName);
-		if (thisNode != null) {
-			return thisNode.getTextContent();
-		}
-		return "";
 	}
 
 	/**
@@ -167,35 +189,22 @@ public class DesignElement {
 		m.appendTail(sb);
 	}
 
-	/**
-	 * @return the name of the design element
-	 */
-	public final String getName() {
-		return name;
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public void setDeclarations(String declarations) {
+		this.declarations = declarations;
 	}
 
 	/**
-	 * @return a list of parent references, i.e. the name of elements that are
-	 *         'Use'd
-	 */
-	public final HashSet<String> getParentReferences() {
-		return parentReferences;
-	}
-
-	@Override
-	public final String toString() {
-		return "DesignElement [nodename=" + nodename + ", name=" + name
-				+ ", parentReferences=" + parentReferences + ", fromTemplate="
-				+ fromTemplate + ", comment=" + comment + "]";
-	}
-
-	/**
-	 * Checks if is linked to others.
+	 * Sets the from template.
 	 * 
-	 * @return true, if is linked to others
+	 * @param inputfromTemplate
+	 *            the new from template
 	 */
-	public final boolean isLinkedToOthers() {
-		return linkedToOthers;
+	public final void setFromTemplate(final String inputfromTemplate) {
+		this.inheritfromTheDesignTemplate = inputfromTemplate;
 	}
 
 	/**
@@ -206,6 +215,20 @@ public class DesignElement {
 	 */
 	public final void setLinkedToOthers(final boolean inputlinkedToOthers) {
 		linkedToOthers = inputlinkedToOthers;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "DesignElement [comment=" + comment + ", declarations="
+				+ declarations + ", inheritfromTheDesignTemplate="
+				+ inheritfromTheDesignTemplate + ", linkedToOthers="
+				+ linkedToOthers + ", name=" + name + ", nodename=" + nodename
+				+ ", parentReferences=" + parentReferences + ", parents="
+				+ parents + "]";
 	}
 
 }
