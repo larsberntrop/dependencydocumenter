@@ -39,7 +39,8 @@ public class TestGifCreation extends TestCase {
 
 		// File f = new
 		// File("H:\\Current Projects\\dependencytracker\\ExportDxl.xml");
-		File f = new File("H:\\Current Projects\\dependencytracker\\test1.dxl");
+		File f = new File(
+				"H:\\Current Projects\\dependencydocumenter\\test1.dxl");
 
 		DependencyAnalyser d = new DependencyAnalyser(db);
 		d.createDocumentationPageFromDXLFile(f);
