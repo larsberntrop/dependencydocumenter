@@ -1,16 +1,13 @@
-package test.com.magerman.depdencytracker;
+package com.magerman.dependencydocumenter;
 
 import java.io.File;
 
 import junit.framework.TestCase;
-import lotus.domino.AgentContext;
 import lotus.domino.Database;
 import lotus.domino.NotesException;
 import lotus.domino.NotesFactory;
 import lotus.domino.NotesThread;
 import lotus.domino.Session;
-
-import com.magerman.depdencytracker.DependencyAnalyser;
 
 public class TestOnceDatabaseIsSelected extends TestCase {
 	Database db;
@@ -19,7 +16,6 @@ public class TestOnceDatabaseIsSelected extends TestCase {
 	protected void setUp() {
 
 		NotesThread.sinitThread();
-		AgentContext ctx = null;
 
 		try {
 			session = NotesFactory.createSession();

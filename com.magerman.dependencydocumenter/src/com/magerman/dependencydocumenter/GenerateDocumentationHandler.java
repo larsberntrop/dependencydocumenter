@@ -19,7 +19,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import com.ibm.designer.domino.ide.resources.extensions.DesignerProject;
 import com.ibm.designer.domino.ui.commons.extensions.DesignerDesignElementSelection;
 import com.ibm.designer.domino.ui.commons.extensions.DesignerResource;
-import com.magerman.depdencytracker.DependencyAnalyser;
 
 public class GenerateDocumentationHandler extends AbstractHandler {
 

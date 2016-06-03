@@ -5,4 +5,4 @@
  * @author Andrew Magerman
  *
  */
-package com.magerman.depdencytracker;
+package com.magerman.dependencydocumenter;

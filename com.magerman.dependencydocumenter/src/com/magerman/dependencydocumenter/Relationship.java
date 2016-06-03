@@ -1,4 +1,4 @@
-package com.magerman.depdencytracker;
+package com.magerman.dependencydocumenter;
 
 /**
  * The Class Relationship.

@@ -1,16 +1,13 @@
-package test.com.magerman.depdencytracker;
+package com.magerman.dependencydocumenter;
 
 import java.io.File;
 
 import junit.framework.TestCase;
-import lotus.domino.AgentContext;
 import lotus.domino.Database;
 import lotus.domino.NotesException;
 import lotus.domino.NotesFactory;
 import lotus.domino.NotesThread;
 import lotus.domino.Session;
-
-import com.magerman.depdencytracker.DependencyAnalyser;
 
 public class TestGifCreation extends TestCase {
 	Database db;
@@ -18,7 +15,6 @@ public class TestGifCreation extends TestCase {
 	protected void setUp() {
 		Session session;
 		NotesThread.sinitThread();
-		AgentContext ctx = null;
 
 		try {
 			session = NotesFactory.createSession();
@@ -59,7 +55,6 @@ public class TestGifCreation extends TestCase {
 	}
 
 	public void testGifToBase64() {
-		Session session;
 
 		DependencyAnalyser d = new DependencyAnalyser(db);
 		System.out.println(d.convertGifToBaseT64(d.getFilePicture()));

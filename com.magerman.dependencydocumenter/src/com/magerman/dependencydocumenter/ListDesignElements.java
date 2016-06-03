@@ -1,4 +1,4 @@
-package com.magerman.depdencytracker;
+package com.magerman.dependencydocumenter;
 
 import java.util.ArrayList;
 import java.util.Collection;

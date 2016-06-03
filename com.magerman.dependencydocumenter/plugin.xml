@@ -15,7 +15,6 @@
 
 <extension
       point="org.eclipse.ui.commands">
-
    <command id="com.magerman.dependencydocumenter.GenerateDocumentation" name="Generate Dependency Documentation"></command>   
 </extension>
 

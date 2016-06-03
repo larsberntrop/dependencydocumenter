@@ -1,4 +1,4 @@
-package com.magerman.depdencytracker;
+package com.magerman.dependencydocumenter;
 
 // GraphViz.java - a simple API to call dot from Java programs
 
