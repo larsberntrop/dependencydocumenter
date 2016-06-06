@@ -2,7 +2,7 @@
 <feature
       id="com.magerman.dependencydocumenter.feature"
       label="Dependencydocumenter"
-      version="0.9.1"
+      version="0.9.2"
       provider-name="MAGERMAN"
       os="win32"
       ws="win32">
@@ -23,7 +23,7 @@
          id="com.magerman.dependencydocumenter"
          download-size="0"
          install-size="0"
-         version="0.9.1"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
