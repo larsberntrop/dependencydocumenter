@@ -283,7 +283,7 @@ public class DependencyAnalyser {
 		try {
 			gv.addln("label=\""
 					+ db.getTitle()
-					+ " Script Library Dependencies\n laid out by Graphviz and openntf DDE Plug-in Dependency Documenter v0.9.2\"");
+					+ " Script Library Dependencies\n laid out by Graphviz and openntf DDE Plug-in Dependency Documenter v0.9.5\"");
 		} catch (NotesException e1) {
 			e1.printStackTrace();
 		}
