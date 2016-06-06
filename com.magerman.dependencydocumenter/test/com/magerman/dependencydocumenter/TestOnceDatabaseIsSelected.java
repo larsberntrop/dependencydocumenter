@@ -44,7 +44,7 @@ public class TestOnceDatabaseIsSelected extends TestCase {
 				File f = new File(pathToDotExe);
 				if (f.exists() && !f.isDirectory()) {
 					da.setPathToDotExe(pathToDotExe);
-					da.run();
+					assertTrue(da.run());
 				}
 			}
 		} catch (NotesException e) {
