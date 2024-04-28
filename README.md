@@ -1,5 +1,5 @@
 # Dependency Documenter
-An IBM Domino Designer plugin that uses graphviz to visually show the dependencies within Script Libraries
+A HCL Domino Designer plugin that uses graphviz to visually show the dependencies within Script Libraries
 
 ## Visually document the dependency tree of Script Libraries in your database with one click
 
